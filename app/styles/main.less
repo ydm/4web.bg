@@ -1,7 +1,10 @@
+// Standard Bootstrap variables
 @import "../components/bootstrap/less/variables.less";
 
 // Override some styles
 @sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Bootstrap mixins
 @import "../components/bootstrap/less/mixins.less";
 
 // CSS Reset
@@ -12,16 +15,52 @@
 @import "../components/bootstrap/less/grid.less";
 @import "../components/bootstrap/less/layouts.less";
 
+// Base CSS
+@import "../components/bootstrap/less/type.less";
+@import "../components/bootstrap/less/forms.less";
+
+// Components: common
+@import "../components/bootstrap/less/wells.less";
+
+// Components: Buttons & Alerts
+@import "../components/bootstrap/less/buttons.less";
+
+// Bootstrap utilities
 @import "../components/bootstrap/less/utilities.less";
 
-// +-----------+
-// | Variables |
-// +-----------+
-@navigation-item-color: gray;
+// +----------------+
+// | 4web variables |
+// +----------------+
+@gap: 40px;
 @navigation-item-color-highlight: black;
+@navigation-item-color: gray;
+@page-transition-duration: 0.4s;
+@rule-color: gray;
+
+// +----------------+
+// | 4web functions |
+// +----------------+
+#4web {
+    @std-rule-color: gray;
+
+    .fontShorthand(@size: @baseFontSize, @weight: normal) {
+        @coef: @size / @baseFontSize;
+        @lineHeight: @baseLineHeight * @coef;
+        #font > .shorthand(@size, @weight, @lineHeight);
+    }
+
+    .ruleTop(@rule-color: @rule-color) {
+        border-top: 1px solid @rule-color;
+    }
+
+    .ruleBottom(@rule-color: @rule-color, @gap: 40px) {
+        border-bottom: 1px solid @rule-color;
+        margin-bottom: @gap;
+    }
+}
 
 body {
-    margin-top: 40px;
+    padding: @gap 0;
 }
 
 // +------------+
@@ -30,22 +69,20 @@ body {
 
 .navigation {
     .makeRow();
+    margin-bottom: 2 * @gap;
 
     a {
+        #4web > .fontShorthand(18px, 300);
         .makeColumn(2);
+        .transition-duration(0.5s);
 
         border-bottom: 1px solid @navigation-item-color;
         color: @navigation-item-color;
-        // font-family: 'Open Sans', sans-serif;
-        font-size: 18px;
-        font-weight: 300;
-        margin-top: 120px;
+        margin-top: 24px;
         text-transform: uppercase;
     }
 
     a:hover {
-        .transition-duration(0.2s);
-
         border-bottom: 1px solid @navigation-item-color-highlight;
         color: @navigation-item-color-highlight;
         text-decoration: none;
@@ -54,80 +91,123 @@ body {
     .logo {
         .makeColumn(4);
 
-        border-bottom: none;    // reset
-        margin-top: 0;          // reset
-
         img {
             display: block;
             margin: 0 auto;
         }
     }
 
+    // reset
+    .logo,
     .logo:hover {
-        border-bottom: none;    // reset
+        margin-top: 0;
+        border-bottom: none;
     }
-
 }
 
 // +---------+
 // | Content |
 // +---------+
 .content {
+    // #4web > .ruleBottom();
     .makeRow();
-    margin-top: 40px;
+    .transition-duration(@page-transition-duration);
     overflow: hidden;
 
     .page-container {
+        .transition-duration(@page-transition-duration);
+
+        display: table;
         width: 960px * 4;
+    }
 
-        .page {
-            .clearfix;
+    // Common style for all pages
+    .page {
+        .clearfix();
+        .size(auto, 960px);
+        float: left;
 
-            width: 960px;
-            height: auto;
-            float: left;
+        .heading {
+            margin-bottom: @gap * 2;
+        }
 
-            .item:first-child,
-            .item:nth-child(8) {
-                // TODO: ie doesn't support nth-child
-                margin-left: 130px;
+        h1, h2, h3 {
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .lead {
+            text-align: center;
+        }
+
+        // TODO: really? :D
+        .standfirst {
+            #4web > .fontShorthand(16px);
+            margin-bottom: @gap;
+            text-align: center;
+        }
+
+        .row {
+            margin-left: 0;
+        }
+    }
+
+    // Home page
+    .home .grid {
+
+        // reset
+        .row:nth-child(odd) .item:first-child {
+            margin-left: inherit;
+        }
+        
+        // TODO: ie...
+        .row:nth-child(2) .item:first-child {
+            margin-left: 130px;
+        }
+
+        .item {
+            .opacity(0);
+        }
+    }
+
+    .work h2 {
+        margin-bottom: @gap;
+    }
+
+    // About page
+    .about {
+        .standfirst {
+            margin-bottom: @gap;
+        }
+
+        .grid {
+            // reset
+            .row:nth-child(odd) .item:first-child {
+                margin-left: inherit;
+            }
+        }
+    }
+
+    // Contact page
+    .contact {
+        .contact-form-wrapper {
+            .center-block();
+            display: table;
+            margin-bottom: @gap;
+            text-align: center;
+            width: 400px;
+
+            input[type="text"], textarea {
+                width: 100%;
+                // #4web > .fontShorthand(16px);
             }
 
-            .item {
-                position: relative;
-                opacity: 0;
-
-                img {
-                    .img-polaroid;
-                    .img-circle;
-                }
-
-                .overlay {
-                    .img-polaroid;
-                    .img-circle;
-                    opacity: 0; // I'll die when it comes to fix this for IE
-                    #gradient > .vertical(@grayLighter, @blue);
-
-                    .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
-                    position: absolute;
-                    height: 200px;
-                    width: 200px;
-                    top: 0;
-                    left: 0;
-
-                    // text properties
-                    text-align: center;
-                    color: @white;
-                    @coef: 22 / 14;
-                    font-size: 22px;
-                    #font > .shorthand(@baseFontSize * @coef, 400, @baseLineHeight * @coef);
-                    line-height: 200px;
-
-                    a {
-                        color: @white;
-                    }
-                }
-                .makeColumn(3);
+            input[type="button"] {
+                .btn();
+                .btn-info();
+                .buttonBackground(#00A8FF, #0096e3);
+                .pull-right();
+                font-weight: 700;
             }
         }
     }
@@ -137,19 +217,90 @@ body {
 // | Footer |
 // +--------+
 .footer {
+    #4web > .ruleTop();
     .makeRow();
-
-    margin-top: 40px;
-    margin-bottom: 40px;
+    padding-top: @gap / 2;
 
     .copyleft {
         .makeColumn(12);
+        #4web > .fontShorthand(16, 300);
+        text-align: center;
+    }
+}
 
-        @coef: 16 / 14;
-        #font > .shorthand(@baseFontSize * @coef, 300, @baseLineHeight * @coef);
+// +------+
+// | Grid |
+// +------+
+.grid {
+    margin-bottom: 2 * @gap;
 
-        // font-family: 'Open Sans', sans-serif;
-        border-top: 1px solid gray;
+    // TODO: ie...
+    .row:nth-child(odd) .item:first-child {
+        margin-left: 130px;
+    }
+
+    .item {
+        .makeColumn(3);
+        .transition-duration(0.4s);
+        position: relative;
+
+        img {
+            .img-circle;
+            .img-polaroid;
+            .square(210px);
+        }
+
+        .overlay {
+            .opacity(0);
+            .transition-duration(0.3s);
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            .background {
+                #gradient > .radial(@grayLighter, @blueDark);
+                .img-circle();
+                .opacity(30);
+                .square(218px);
+
+                border: 1px solid #ccc;
+                border: 1px solid rgba(0,0,0,.2);
+            }
+
+            .text {
+                #4web > .fontShorthand(24px, 700);
+                .square(220px);
+
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                color: @white;
+                display: inline-block;
+                line-height: 210px;
+                text-align: center;
+                text-shadow: 8px 8px 2px rgba(0, 0, 0, 0.25),
+                             0px 0px 2px white,
+                             0px 0px 3px black;
+            }
+        }
+    }
+}
+
+// +----------+
+// | Services |
+// +----------+
+.services {
+    margin-bottom: 2 * @gap;
+
+    .item {
+        .makeColumn(3);
+        // border-top: 1px solid @rule-color;
         text-align: center;
     }
 }
