@@ -4,14 +4,11 @@
   define(['jquery'], function($) {
     var navigateToPage, pageHashToPos, pagePosToHash, radialGradient, randomColor, selectors, shuffle;
     randomColor = function() {
-      var i, product, v, _i;
+      var product;
       product = '#';
-      for (i = _i = 0; _i <= 2; i = ++_i) {
-        v = 64 + Math.floor(Math.random() * 192);
-        v = v.toString(16);
-        product += v;
-      }
-      return product;
+      product += (64 + Math.floor(Math.random() * 192)).toString(16);
+      product += (64 + Math.floor(Math.random() * 192)).toString(16);
+      return product += (128 + Math.floor(Math.random() * 128)).toString(16);
     };
     radialGradient = function(element, innerColor, outerColor) {
       var $e;
@@ -97,6 +94,12 @@
       return navigateToPage(pos, pos !== 0);
     });
     return $(function() {
+      $('#contact-form-submit').click(function(e) {
+        e.preventDefault();
+        return alert('Последно обновление: 6. март, 2013.\n\n\
+Сайтът все още се разработва.\n\
+За контакти пишете на petar@4web.bg');
+      });
       (function() {
         var i, interval, items;
         i = 0;

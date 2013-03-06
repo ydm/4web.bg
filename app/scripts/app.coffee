@@ -8,15 +8,6 @@ define ['jquery'], ($) ->
     product += (64  + Math.floor Math.random() * 192).toString 16
     product += (128 + Math.floor Math.random() * 128).toString 16
 
-        for i in [0..2]
-      v = 64 + Math.floor Math.random() * 192
-      v = v.toString 16
-      # not needed when we have v is at least 0x10 (16)
-      # v = '0' + v if v.length == 1
-      product += v
-
-    product
-
   # Set a radial gradient using CSS3 properties. Only the `element`
   # argument is required. If missed, the inner and outher colors will
   # be randomly generated.
@@ -104,6 +95,13 @@ define ['jquery'], ($) ->
     navigateToPage pos, pos != 0
 
   $ ->
+    # Temporary:
+    $('#contact-form-submit').click (e) ->
+      e.preventDefault()
+      alert 'Последно обновление: 6. март, 2013.\n\n
+Сайтът все още се разработва.\n
+За контакти пишете на petar@4web.bg'
+
     # y: Here and forward I use the `do` keyword often just to wrap
     # inner variables inside a scope.  In the case below I have to do
     # that since I work with an interval.  If something outside
