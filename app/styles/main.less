@@ -60,6 +60,10 @@
 }
 
 body {
+    // padding: @gap 0;
+}
+
+.container {
     padding: @gap 0;
 }
 
@@ -109,7 +113,6 @@ body {
 // | Content |
 // +---------+
 .content {
-    // #4web > .ruleBottom();
     .makeRow();
     .transition-duration(@page-transition-duration);
     overflow: hidden;
@@ -121,7 +124,7 @@ body {
         width: 960px * 4;
     }
 
-    // Common style for all pages
+    // Common styles for all pages
     .page {
         .clearfix();
         .size(auto, 960px);
@@ -170,20 +173,71 @@ body {
         }
     }
 
-    .work h2 {
-        margin-bottom: @gap;
+    // Work page
+    .work {
+        h2 {
+            margin-bottom: @gap;
+        }
+
+        .services {
+            margin-bottom: 2 * @gap;
+
+            .item {
+                .makeColumn(3);
+                // border-top: 1px solid @rule-color;
+                text-align: center;
+            }
+        }
     }
 
     // About page
     .about {
-        .standfirst {
-            margin-bottom: @gap;
-        }
 
         .grid {
+            margin-bottom: 0;
+
             // reset
             .row:nth-child(odd) .item:first-child {
                 margin-left: inherit;
+            }
+        }
+
+        .detail {
+            .row {
+                position: relative;
+                height: 90px;
+                margin: @gap 0;
+            }
+            .row > * {
+                position: absolute;
+                top: 50%;
+                text-transform: lowercase;
+            }
+            .row h2 {
+                width: 380px;
+
+                text-align: right;
+                margin: -30px 0 0 20px;
+                color: lightgray;
+                font-weight: 400;
+            }
+            .row h2:after {
+                content: " { ";
+                font-size: 110px;
+                font-weight: 300;
+            }
+            .row ul {
+                margin: -38px 0 0 20px;
+                left: 400px;
+                list-style-type: none;
+            }
+            .row ul li {
+                #4web > .fontShorthand(18px, 300);
+            }
+
+            .paren {
+                font-size: 90px;
+                color: lightgray;
             }
         }
     }
@@ -292,15 +346,14 @@ body {
     }
 }
 
-// +----------+
-// | Services |
-// +----------+
-.services {
-    margin-bottom: 2 * @gap;
+/* ==========================================================================
+Chrome Frame prompt
+========================================================================== */
 
-    .item {
-        .makeColumn(3);
-        // border-top: 1px solid @rule-color;
-        text-align: center;
-    }
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+    text-align: center;
 }
