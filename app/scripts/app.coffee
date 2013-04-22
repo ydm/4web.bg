@@ -98,15 +98,24 @@ define ['jquery'], ($) ->
     # Temporary:
     $('#contact-form-submit').click (e) ->
       e.preventDefault()
-      alert 'Последно обновление: 6. март, 2013.\n\n
-Сайтът все още се разработва.\n
-За контакти пишете на petar@4web.bg'
+      $form = $ '#contact-form'
+      data = $form.serialize()
+
+      # TODO: Notify user of successful sending or error
+      onSuccess = (data, textStatus, jqXHR) ->
+        if data.success
+          # Reset input fields
+          $form.find('input[type=text]').val ''
+          $form.find('textarea').val ''
+      res = $.post $form.get(0).action, data, onSuccess, 'json'
+      # return false
 
     # y: Here and forward I use the `do` keyword often just to wrap
     # inner variables inside a scope.  In the case below I have to do
     # that since I work with an interval.  If something outside
     # changes the value of `i` while the interval is still running,
-    # shit will happen. That's why `i` is encapsulated inside a scope.
+    # shit will happen.  That's why `i` is encapsulated inside a
+    # scope.
 
     # Fade in front items in random order
     do ->
@@ -119,7 +128,6 @@ define ['jquery'], ($) ->
       , 120
 
     # Random overlay colors
-    console.log selectors.homeItems
     do ->
       for own item in $ selectors.gridItems
         radialGradient $(item).find '.overlay .background'
