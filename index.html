@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>4web</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: #000;
+      color: #a0a0a0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .logo {
+      display: block;
+      width: min(320px, 80vw);
+      height: auto;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    nav a {
+      color: #a0a0a0;
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      transition: color 0.15s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: #00a8f8;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <img
+      class="logo"
+      src="logo.png"
+      srcset="logo.png 1x, logo@2x.png 2x"
+      width="1200"
+      height="304"
+      alt="4web"
+    />
+
+    <nav>
+      <a href="#">Link one</a>
+      <a href="#">Link two</a>
+      <a href="#">Link three</a>
+      <a href="#">Link four</a>
+    </nav>
+  </main>
+</body>
+</html>
