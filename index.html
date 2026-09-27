@@ -35,13 +35,15 @@
       color: #333;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
       padding: 2rem;
     }
 
     .page {
+      flex: 1;
+      justify-content: center;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -74,6 +76,25 @@
     nav a:focus-visible {
       color: #00a8f8;
     }
+
+    footer {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: #00a8f8;
+    }
   </style>
 </head>
 <body>
@@ -92,5 +113,21 @@
       <a href="https://charmeth.com">CharmETH</a>
     </nav>
   </main>
+
+  <footer>
+    <a href="https://github.com/ydm">github.com/ydm</a>
+    <a id="email" data-u="vonidalimnadroj" data-d="moc.liamg">jordanmiladinov [at] gmail [dot] com</a>
+  </footer>
+
+  <script>
+    // Assemble the address at runtime so it never appears verbatim in the HTML.
+    (function () {
+      var el = document.getElementById("email");
+      var rev = function (s) { return s.split("").reverse().join(""); };
+      var addr = rev(el.dataset.u) + "\u0040" + rev(el.dataset.d);
+      el.href = "mail" + "to:" + addr;
+      el.textContent = addr;
+    })();
+  </script>
 </body>
 </html>
